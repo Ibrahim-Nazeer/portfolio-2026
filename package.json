@@ -10,12 +10,10 @@
     "dev:vinext": "vite dev --port 3001",
     "build:vinext": "vite build",
     "start:vinext": "vite preview",
-    "deploy:vinext": "vinext-cloudflare deploy --warm-cache",
-    "deploy:response-store": "cf deploy --prebuilt --mode production --worker portfolio-response-store"
+    "deploy:vinext": "vinext-cloudflare deploy"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
-    "@cloudflare/workers-response-store": "^1.1.2",
     "@vinext/cloudflare": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.0",
