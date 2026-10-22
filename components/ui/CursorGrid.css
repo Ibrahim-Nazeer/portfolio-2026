@@ -1,0 +1,13 @@
+.cursor-grid--fallback {
+  background-color: var(--bg, #0c0c0c);
+  background-image:
+    radial-gradient(circle 190px at var(--pointer-x, -1000px) var(--pointer-y, -1000px), color-mix(in srgb, var(--cursor-grid-glow) 24%, transparent), transparent 100%),
+    linear-gradient(to right, color-mix(in srgb, var(--cursor-grid-color) 38%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--cursor-grid-color) 38%, transparent) 1px, transparent 1px);
+  background-size: 190px 190px, var(--cursor-grid-cell, 60px) var(--cursor-grid-cell, 60px), var(--cursor-grid-cell, 60px) var(--cursor-grid-cell, 60px);
+  background-repeat: no-repeat, repeat, repeat;
+}
+
+.cursor-grid--fallback canvas {
+  display: none;
+}
