@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Cloudflare Pages serves static files, so emit an `out/` directory with
+  // a top-level index.html instead of a server/Worker bundle.
+  output: "export",
   experimental: {
     agentFeedback: true,
   },
