@@ -34,6 +34,7 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
+      className="content-section"
       aria-label="Experience and Leadership"
       style={{
         padding: "6rem 2.5rem",

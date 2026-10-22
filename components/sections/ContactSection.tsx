@@ -14,6 +14,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
+      className="content-section"
       aria-label="Contact Section"
       style={{
         padding: "6rem 2.5rem",
@@ -149,6 +150,7 @@ export default function ContactSection() {
 
         {/* Contact info grid */}
         <div
+          className="responsive-grid contact-info-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",

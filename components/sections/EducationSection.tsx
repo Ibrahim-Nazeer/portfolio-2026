@@ -6,6 +6,7 @@ export default function EducationSection() {
   return (
     <section
       id="education"
+      className="content-section"
       aria-label="Education and Academic Background"
       style={{
         padding: "5rem 2.5rem",
@@ -31,6 +32,7 @@ export default function EducationSection() {
 
         {/* Card */}
         <div
+          className="responsive-grid education-card"
           style={{
             background: "var(--surface)",
             border: "1.5px solid #e0ddd6",

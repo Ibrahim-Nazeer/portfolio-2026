@@ -39,6 +39,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
+      className="content-section"
       aria-label="Core Skills"
       style={{
         padding: "6rem 2.5rem",
@@ -75,6 +76,7 @@ export default function SkillsSection() {
 
         {/* Skill Category Cards */}
         <div
+          className="responsive-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",

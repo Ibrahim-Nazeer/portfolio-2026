@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import Link from "next/link";
+import { Sun, Moon, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
@@ -14,23 +15,25 @@ export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handler, { passive: true });
 
     // Initialize theme: keep light mode default unless explicitly set to dark
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark") {
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      setTheme("light");
-      document.documentElement.classList.remove("dark");
-    }
-    window.dispatchEvent(new Event("themechange"));
+    const themeFrame = requestAnimationFrame(() => {
+      const saved = localStorage.getItem("theme");
+      const nextTheme = saved === "dark" ? "dark" : "light";
+      setTheme(nextTheme);
+      document.documentElement.classList.toggle("dark", nextTheme === "dark");
+      window.dispatchEvent(new Event("themechange"));
+    });
 
-    return () => window.removeEventListener("scroll", handler);
+    return () => {
+      cancelAnimationFrame(themeFrame);
+      window.removeEventListener("scroll", handler);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -50,6 +53,7 @@ export default function TopNav() {
 
   return (
     <header
+      className="site-header"
       role="banner"
       style={{
         position: "fixed",
@@ -73,7 +77,7 @@ export default function TopNav() {
         transition: "background 0.3s, border-color 0.3s, box-shadow 0.3s",
       }}
     >
-      <a
+      <Link
         href="/"
         aria-label="Home"
         style={{
@@ -87,14 +91,15 @@ export default function TopNav() {
         }}
       >
         Syed Ibrahim.
-      </a>
+      </Link>
 
-      <nav aria-label="Main navigation">
-        <ul style={{ display: "flex", gap: "2rem", listStyle: "none" }}>
+      <nav id="mobile-site-nav" className={menuOpen ? "site-nav is-open" : "site-nav"} aria-label="Main navigation">
+        <ul className="site-nav-list" style={{ display: "flex", gap: "2rem", listStyle: "none" }}>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
+                onClick={() => setMenuOpen(false)}
                 onMouseEnter={() => setHovered(link.href)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
@@ -121,10 +126,22 @@ export default function TopNav() {
         </ul>
       </nav>
 
+      <button
+        type="button"
+        className="mobile-menu-toggle"
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-site-nav"
+        onClick={() => setMenuOpen(open => !open)}
+      >
+        {menuOpen ? <X size={19} /> : <Menu size={19} />}
+      </button>
+
       {/* Light / Dark Mode Toggle Switch */}
       <button
         type="button"
         id="theme-toggle-btn"
+        className="site-theme-toggle"
         onClick={toggleTheme}
         aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
         title={isDark ? "Switch to light mode" : "Switch to dark mode"}

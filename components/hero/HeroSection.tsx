@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CursorGrid from "@/components/ui/CursorGrid";
 import { KnotAnimation } from "@/components/ui/knot-animation";
 import { motion } from "framer-motion";
@@ -153,10 +153,20 @@ export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [btn1Hov, setBtn1Hov] = useState(false);
   const [btn2Hov, setBtn2Hov] = useState(false);
+  const [compactLayout, setCompactLayout] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 1024px)");
+    const update = () => setCompactLayout(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   return (
     <section
       id="home"
+      className="hero-section"
       aria-label="Hero section"
       style={{
         minHeight: "100dvh",
@@ -184,6 +194,7 @@ export default function HeroSection() {
       />
 
       <div
+        className="hero-inner"
         ref={containerRef}
         style={{
           flex: 1,
@@ -198,7 +209,7 @@ export default function HeroSection() {
         {/* Simple Knot animation */}
         <div
           aria-hidden="true"
-          className="hidden md:flex"
+          className="hero-knot hidden md:flex"
           style={{
             position: "absolute",
             top: "50%",
@@ -223,7 +234,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── Hero copy ─────────────────────────────── */}
-        <div style={{ maxWidth: 660, position: "relative", zIndex: 2 }}>
+        <div className="hero-copy" style={{ maxWidth: 660, position: "relative", zIndex: 2 }}>
           {/* Headline */}
           <h1
             className="anim-fade-up delay-2"
@@ -307,7 +318,8 @@ export default function HeroSection() {
 
         {/* ── Terminal widget (draggable) ─────────────────────────────── */}
         <motion.div
-          drag
+          className="hero-terminal"
+          drag={!compactLayout}
           dragConstraints={containerRef}
           dragElastic={0.12}
           dragMomentum={true}

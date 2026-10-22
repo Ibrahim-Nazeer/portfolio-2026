@@ -52,6 +52,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
+      className="content-section"
       aria-label="Featured Projects"
       style={{
         padding: "6rem 2.5rem",
@@ -89,6 +90,7 @@ export default function ProjectsSection() {
 
         {/* Project Cards Grid */}
         <div
+          className="responsive-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",

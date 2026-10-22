@@ -5,6 +5,7 @@ import React from "react";
 export default function Footer() {
   return (
     <footer
+      className="content-footer"
       style={{
         padding: "3rem 2.5rem",
         background: "#0c0c0c",
